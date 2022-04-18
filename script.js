@@ -17,11 +17,24 @@ const data = (() => {
       humidity: weatherData.main.humidity,
       pressure: weatherData.main.pressure,
       weather: weatherData.weather[0].main,
+      tempHigh: weatherData.main.temp_max,
+      tempLow: weatherData.main.temp_min,
+      sunset: parseHour(new Date(weatherData.sys.sunset * 1000)),
+      sunrise: parseHour(new Date(weatherData.sys.sunrise * 1000)),
       date: new Date(weatherData.dt * 1000),
     };
     console.log(parsed);
     return parsed;
   };
+
+  const parseHour = (date) => {
+    const time = date.toLocaleTimeString('en-US');
+    const hour = time.split(' ')[0].slice(0, -3);
+    const rest = time.split(' ')[1];
+    const newTime = hour + ' ' + rest;
+    return newTime;
+  };
+
   return { getWeatherData, parseData };
 })();
 
