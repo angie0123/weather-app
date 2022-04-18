@@ -12,19 +12,23 @@ const data = (() => {
     const weatherData = await getWeatherData(city);
     const parsed = {
       city: weatherData.name,
-      temp: weatherData.main.temp,
-      feelsLike: weatherData.main.feels_like,
+      temp: Math.round(weatherData.main.temp),
+      feelsLike: Math.round(weatherData.main.feels_like),
       humidity: weatherData.main.humidity,
       pressure: weatherData.main.pressure,
       description: weatherData.weather[0].main,
-      tempHigh: weatherData.main.temp_max,
-      tempLow: weatherData.main.temp_min,
+      tempHigh: Math.round(weatherData.main.temp_max),
+      tempLow: Math.round(weatherData.main.temp_min),
       sunset: parseHour(new Date(weatherData.sys.sunset * 1000)),
       sunrise: parseHour(new Date(weatherData.sys.sunrise * 1000)),
-      date: new Date(weatherData.dt * 1000),
+      date: parseDate(new Date(weatherData.dt * 1000)),
     };
     console.log(parsed);
     return parsed;
+  };
+
+  const parseDate = (date) => {
+    return date.toString().split(' ').slice(0, 3).join(' ');
   };
 
   const parseHour = (date) => {
