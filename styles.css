@@ -7,7 +7,7 @@
 
 nav {
   height: 10vh;
-  background-color: white;
+  background-color: rgb(247, 240, 240);
   display: flex;
   align-items: center;
   padding-left: 30px;
@@ -36,7 +36,10 @@ input {
 }
 
 body {
-  background-color: goldenrod;
+  background: url('./images/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   height: 100vh;
 }
 
@@ -67,12 +70,13 @@ button:hover {
 }
 
 .today {
-  background-color: white;
   grid-column: 1;
+  color: rgb(247, 238, 238);
 }
 
 .today-main {
   display: flex;
+  padding: 20px;
 }
 
 .today .text .city {
@@ -83,6 +87,8 @@ button:hover {
 .card {
   border-radius: 8px;
   padding: 20px;
+  color: rgb(44, 40, 40);
+  background-color: rgb(247, 238, 238);
 }
 
 .today .text .temp {
@@ -96,7 +102,7 @@ button:hover {
 }
 
 .details {
-  background: rgb(169, 169, 214);
+  background: rgb(255, 255, 255);
   display: flex;
   justify-content: space-between;
   width: 500px;
