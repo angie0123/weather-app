@@ -16,7 +16,7 @@ const data = (() => {
       feelsLike: weatherData.main.feels_like,
       humidity: weatherData.main.humidity,
       pressure: weatherData.main.pressure,
-      weather: weatherData.weather[0].main,
+      description: weatherData.weather[0].main,
       tempHigh: weatherData.main.temp_max,
       tempLow: weatherData.main.temp_min,
       sunset: parseHour(new Date(weatherData.sys.sunset * 1000)),
@@ -45,10 +45,37 @@ const form = (() => {
     submit.addEventListener('click', async () => {
       event.preventDefault();
       const city = input.value;
-      await data.parseData(city);
+      const result = await data.parseData(city);
+      view.populateTodaySection(result);
     });
   };
   return { addHandler };
+})();
+
+const view = (() => {
+  const populateTodaySection = (data) => {
+    for (property in data) {
+      if (property === 'tempLow') {
+        changeTextContent('temp-low', data[property]);
+        continue;
+      }
+      if (property === 'tempHigh') {
+        changeTextContent('temp-high', data[property]);
+        continue;
+      }
+      if (property === 'feelsLike') {
+        changeTextContent('feels-like', data[property]);
+        continue;
+      }
+      changeTextContent(property, data[property]);
+    }
+  };
+
+  const changeTextContent = (element, content) => {
+    document.querySelector(`.${element}`).textContent = content;
+  };
+
+  return { populateTodaySection };
 })();
 
 form.addHandler();
