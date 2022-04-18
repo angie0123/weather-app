@@ -4,14 +4,49 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/styles.css" />
     <script src="script.js" defer></script>
     <title>Weather</title>
   </head>
   <body>
-    <form action="">
-      <input type="text" placeholder="Search your city" />
-      <button>Search</button>
-    </form>
+    <nav>
+      <div class="logo">Weather App</div>
+      <form action="">
+        <input type="text" placeholder="Search your city" />
+        <button>Search</button>
+      </form>
+    </nav>
+    <div class="main">
+      <div class="today">
+        <div class="today-main card">
+          <div class="text">
+            <div class="city">Toronto</div>
+            <div class="temp">2 °F</div>
+            <div class="description">Clear</div>
+            <div class="feels-like">Feels like 9 °F</div>
+          </div>
+          <img src="./images/clear.svg" alt="" />
+        </div>
+        <div class="details card">
+          <div class="detail">
+            <div class="title">Humidity</div>
+            <div class="content">92%</div>
+          </div>
+          <div class="detail">
+            <div class="title">POP</div>
+            <div class="content">8%</div>
+          </div>
+          <div class="detail">
+            <div class="title">Pressure</div>
+            <div class="content">100mh</div>
+            <div class="title">Sunrise</div>
+            <div class="content">8am</div>
+            <div class="title">Sunset</div>
+            <div class="content">9pm</div>
+          </div>
+        </div>
+      </div>
+      <div class="week"></div>
+    </div>
   </body>
 </html>
