@@ -94,6 +94,24 @@ button:hover {
   background-color: var(--light-bg-color);
 }
 
+.today .temp-container {
+  display: flex;
+}
+
+.today .temp-container span {
+  font-size: 6rem;
+  font-weight: 300;
+}
+
+.today .temp-container .switch-btn {
+  font-size: 2.2rem;
+  margin-top: 10px;
+}
+
+.today .temp-container .switch-btn:hover {
+  cursor: pointer;
+}
+
 .today .text .temp {
   font-size: 6rem;
   font-weight: bold;
