@@ -55,8 +55,10 @@ const form = (() => {
   const addHandler = () => {
     submit.addEventListener('click', async () => {
       event.preventDefault();
+      view.loadWaitComponent();
       const city = input.value;
       const result = await data.parseData(city);
+      //   view.removeWaitComponent();
       view.populateTodaySection(result);
     });
   };
@@ -64,6 +66,18 @@ const form = (() => {
 })();
 
 const view = (() => {
+  const loadWaitComponent = () => {
+    const waitElement = document.createElement('div');
+    waitElement.classList.add('wait');
+    waitElement.textContent = 'Loading data...';
+    const main = document.querySelector('.main');
+    main.insertBefore(waitElement, document.querySelector('.today'));
+  };
+
+  const initialRender = async (city) => {
+    const result = await data.parseData(city);
+    view.populateTodaySection(result);
+  };
   const getImg = (description) => {
     switch (description) {
       case 'Clouds':
@@ -108,7 +122,8 @@ const view = (() => {
     document.querySelector(`.${element}`).textContent = content;
   };
 
-  return { populateTodaySection };
+  return { populateTodaySection, initialRender, loadWaitComponent };
 })();
 
 form.addHandler();
+view.initialRender('Toronto');
