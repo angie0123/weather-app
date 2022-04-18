@@ -1,24 +1,32 @@
 const data = (() => {
-  async function getWeatherData(city) {
+  async function getWeatherData(city, units = 'metric') {
     const APIkey = '835500ad3429a2468aae2adf3df00704';
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIkey}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${APIkey}`
     );
     const weatherData = await response.json();
     return weatherData;
   }
 
-  const parseData = async (city) => {
+  const parseData = async (city, units = 'metric') => {
     const weatherData = await getWeatherData(city);
     const parsed = {
       city: weatherData.name,
-      temp: Math.round(weatherData.main.temp),
-      feelsLike: Math.round(weatherData.main.feels_like),
-      humidity: weatherData.main.humidity,
-      pressure: weatherData.main.pressure,
+      temp: `${Math.round(weatherData.main.temp)}  ${
+        units === 'metric' ? '°C' : '°F'
+      }`,
+      feelsLike: `Feels like ${Math.round(weatherData.main.feels_like)} ${
+        units === 'metric' ? '°C' : '°F'
+      }`,
+      humidity: `${weatherData.main.humidity} %`,
+      pressure: `${weatherData.main.pressure} mb`,
       description: weatherData.weather[0].main,
-      tempHigh: Math.round(weatherData.main.temp_max),
-      tempLow: Math.round(weatherData.main.temp_min),
+      tempHigh: `${Math.round(weatherData.main.temp_max)}  ${
+        units === 'metric' ? '°C' : '°F'
+      }`,
+      tempLow: `${Math.round(weatherData.main.temp_min)}  ${
+        units === 'metric' ? '°C' : '°F'
+      }`,
       sunset: parseHour(new Date(weatherData.sys.sunset * 1000)),
       sunrise: parseHour(new Date(weatherData.sys.sunrise * 1000)),
       date: parseDate(new Date(weatherData.dt * 1000)),
