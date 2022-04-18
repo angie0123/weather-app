@@ -66,8 +66,47 @@ button:hover {
 }
 
 .today {
-  background-color: pink;
+  background-color: white;
   grid-column: 1;
+}
+
+.today-main {
+  display: flex;
+}
+
+.today .text .city {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.card {
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.today .text .temp {
+  font-size: 6rem;
+  font-weight: bold;
+}
+
+.today img {
+  height: 160px;
+  width: 160px;
+}
+
+.details {
+  background: rgb(169, 169, 214);
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+}
+
+.detail {
+  line-height: 3rem;
+}
+
+.detail .title {
+  font-size: 1.2rem;
 }
 
 .week {
