@@ -31,7 +31,6 @@ const data = (() => {
       sunrise: parseHour(new Date(weatherData.sys.sunrise * 1000)),
       date: parseDate(new Date(weatherData.dt * 1000)),
     };
-    console.log(parsed);
     return parsed;
   };
 
@@ -65,7 +64,29 @@ const form = (() => {
 })();
 
 const view = (() => {
+  const getImg = (description) => {
+    switch (description) {
+      case 'Clouds':
+        return './images/cloudy.svg';
+      case 'Clear':
+        return './images/clear.svg';
+      case 'Snow':
+        return './images/snow.svg';
+      case 'Rain':
+        return './images/rain.svg';
+      case 'Drizzle':
+        return './images/rain.svg';
+      case 'Thunderstorm':
+        return './images/thunder.svg';
+    }
+  };
+
+  const changeImgSrc = (element, url) => {
+    document.querySelector(`.${element}`).setAttribute('src', url);
+  };
+
   const populateTodaySection = (data) => {
+    changeImgSrc('main-img', getImg(data.description));
     for (property in data) {
       if (property === 'tempLow') {
         changeTextContent('temp-low', data[property]);
