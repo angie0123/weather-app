@@ -3,11 +3,13 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'Ubuntu', sans-serif;
+  --dark-font-color: rgb(44 40 46);
+  --light-bg-color: rgb(247, 240, 240);
 }
 
 nav {
   height: 10vh;
-  background-color: rgb(247, 240, 240);
+  background-color: var(--light-bg-color);
   display: flex;
   align-items: center;
   padding-left: 30px;
@@ -71,7 +73,7 @@ button:hover {
 
 .today {
   grid-column: 1;
-  color: rgb(247, 238, 238);
+  color: var(--light-bg-color);
 }
 
 .today-main {
@@ -88,7 +90,7 @@ button:hover {
   border-radius: 8px;
   padding: 20px;
   color: rgb(44, 40, 40);
-  background-color: rgb(247, 238, 238);
+  background-color: var(--light-bg-color);
 }
 
 .today .text .temp {
@@ -96,24 +98,36 @@ button:hover {
   font-weight: bold;
 }
 
-.today img {
+.today .main-img {
   height: 160px;
   width: 160px;
+  margin-left: 50px;
 }
 
 .details {
-  background: rgb(255, 255, 255);
   display: flex;
   justify-content: space-between;
   width: 500px;
+  font-size: 0.9rem;
 }
 
 .detail {
   line-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  padding: 0 7px;
+}
+
+.detail img {
+  width: 30px;
+  height: 30px;
 }
 
 .detail .title {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .week {
