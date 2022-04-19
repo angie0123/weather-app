@@ -65,7 +65,8 @@ const inputs = (() => {
     submit.addEventListener('click', async () => {
       event.preventDefault();
       const city = input.value;
-      const result = await data.parseData(city);
+      const units = data.getUnits();
+      const result = await data.parseData(city, units);
       view.populateTodaySection(result);
     });
   };
