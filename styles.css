@@ -67,13 +67,13 @@ button:hover {
 
 .main {
   display: grid;
+  justify-items: center;
+  align-content: center;
   grid-template-rows: 1fr 1fr;
   padding: 15px 30px;
-  display: relative;
 }
 
 .today {
-  grid-column: 1;
   color: var(--light-bg-color);
 }
 
@@ -147,10 +147,6 @@ button:hover {
 
 .detail .title {
   font-size: 1rem;
-}
-
-.week {
-  grid-column: 2;
 }
 
 .wait {
