@@ -69,8 +69,8 @@ button:hover {
   display: grid;
   justify-items: center;
   align-content: center;
-  grid-template-rows: 1fr 1fr;
   padding: 15px 30px;
+  height: 81vh;
 }
 
 .today {
