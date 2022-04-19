@@ -1,5 +1,14 @@
 const data = (() => {
-  async function getWeatherData(city, units = 'metric') {
+  let units = 'metric';
+  const toggleUnits = () => {
+    units = units === 'metric' ? 'imperial' : 'metric';
+  };
+
+  const getUnits = () => {
+    return units;
+  };
+
+  async function getWeatherData(city, units) {
     const APIkey = '835500ad3429a2468aae2adf3df00704';
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${APIkey}`
@@ -8,8 +17,8 @@ const data = (() => {
     return weatherData;
   }
 
-  const parseData = async (city, units = 'metric') => {
-    const weatherData = await getWeatherData(city);
+  const parseData = async (city, units) => {
+    const weatherData = await getWeatherData(city, units);
     const parsed = {
       city: weatherData.name,
       temp: `${Math.round(weatherData.main.temp)}  ${
@@ -46,13 +55,13 @@ const data = (() => {
     return newTime;
   };
 
-  return { getWeatherData, parseData };
+  return { getWeatherData, parseData, getUnits, toggleUnits };
 })();
 
-const form = (() => {
+const inputs = (() => {
   const input = document.querySelector('input');
   const submit = document.querySelector('button');
-  const addHandler = () => {
+  const addFormHandler = async () => {
     submit.addEventListener('click', async () => {
       event.preventDefault();
       const city = input.value;
@@ -60,12 +69,22 @@ const form = (() => {
       view.populateTodaySection(result);
     });
   };
-  return { addHandler };
+  const addSwitchUnitHandler = async () => {
+    const switchBtn = document.querySelector('.switch-btn');
+    switchBtn.addEventListener('click', async () => {
+      data.toggleUnits();
+      const newUnit = data.getUnits();
+      const city = document.querySelector('.city').textContent;
+      const result = await data.parseData(city, newUnit);
+      view.populateTodaySection(result);
+    });
+  };
+  return { addFormHandler, addSwitchUnitHandler };
 })();
 
 const view = (() => {
-  const initialRender = async (city) => {
-    const result = await data.parseData(city);
+  const initialRender = async (city, units) => {
+    const result = await data.parseData(city, units);
     view.populateTodaySection(result);
   };
   const getImg = (description) => {
@@ -89,22 +108,25 @@ const view = (() => {
     document.querySelector(`.${element}`).setAttribute('src', url);
   };
 
-  const populateTodaySection = (data) => {
-    changeImgSrc('main-img', getImg(data.description));
-    for (property in data) {
+  const populateTodaySection = (weatherData) => {
+    const switchButton = document.querySelector('.switch-btn');
+    switchButton.textContent = data.getUnits() === 'metric' ? '°F' : '°C';
+    changeImgSrc('main-img', getImg(weatherData.description));
+
+    for (property in weatherData) {
       if (property === 'tempLow') {
-        changeTextContent('temp-low', data[property]);
+        changeTextContent('temp-low', weatherData[property]);
         continue;
       }
       if (property === 'tempHigh') {
-        changeTextContent('temp-high', data[property]);
+        changeTextContent('temp-high', weatherData[property]);
         continue;
       }
       if (property === 'feelsLike') {
-        changeTextContent('feels-like', data[property]);
+        changeTextContent('feels-like', weatherData[property]);
         continue;
       }
-      changeTextContent(property, data[property]);
+      changeTextContent(property, weatherData[property]);
     }
   };
 
@@ -118,5 +140,6 @@ const view = (() => {
   };
 })();
 
-form.addHandler();
-view.initialRender('Toronto');
+inputs.addFormHandler();
+inputs.addSwitchUnitHandler();
+view.initialRender('Toronto', data.getUnits());
